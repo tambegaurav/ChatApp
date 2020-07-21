@@ -1,8 +1,10 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 import Navigation from "./src/navigation";
+import firebase from "firebase";
+
+import { firebaseConfig } from "./src/globalStateConfigs/environmentVariables";
 
 export default function App() {
+  firebase.initializeApp(firebaseConfig);
   return <Navigation />;
 }

@@ -10,7 +10,7 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Title style={styles.titleText}>Chat app</Title>
+      <Title style={styles.titleText}>Blah-Blah app</Title>
       <FormInput
         labelName="Email"
         value={email}
