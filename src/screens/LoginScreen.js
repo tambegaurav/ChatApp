@@ -3,10 +3,16 @@ import { View, StyleSheet } from "react-native";
 import { Title } from "react-native-paper";
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
+import { login } from "../api/auth";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    const result = await login(email, password);
+    console.log(result);
+  };
 
   return (
     <View style={styles.container}>
@@ -27,6 +33,7 @@ export default function LoginScreen({ navigation }) {
         title="Login"
         modeValue="contained"
         labelStyle={styles.loginButtonLabel}
+        onPress={handleLogin}
       />
       <FormButton
         title="New user? Join here"

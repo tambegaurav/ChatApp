@@ -1,10 +1,12 @@
 import React from "react";
 import Navigation from "./src/navigation";
-import firebase from "firebase";
+import firebase from "firebase/app";
 
 import { firebaseConfig } from "./src/globalStateConfigs/environmentVariables";
 
 export default function App() {
-  firebase.initializeApp(firebaseConfig);
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
   return <Navigation />;
 }
