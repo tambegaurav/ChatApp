@@ -1,7 +1,11 @@
 import React from "react";
-// import { Provider as PaperProvider } from "react-native-paper";
+import { Provider as PaperProvider } from "react-native-paper";
 import Routes from "./Routes";
 
 export default function Providers() {
-  return <Routes />;
+  return (
+    <PaperProvider>
+      <Routes />
+    </PaperProvider>
+  );
 }
