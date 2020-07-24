@@ -5,22 +5,27 @@ import firebase, { firestore } from "firebase/app";
 import "firebase/auth";
 
 import Loading from "../components/Loading";
+import useStatsBar from "../utils/useStatusBar";
 
 export default function HomeScreen({ navigation }) {
   // const user = firebase.auth().currentUser;
-
+  useStatsBar("light-content");
   const [threads, setThreads] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = firestore()
       .collection("THREADS")
+      .orderBy("latestMessage.createdAt", "desc")
       .onSnapshot((querySnapshot) => {
         const threads = querySnapshot.docs.map((documentSnapshot) => {
           return {
             _id: documentSnapshot.id,
 
             name: "",
+            latestMessage: {
+              text: "",
+            },
             ...documentSnapshot.data(),
           };
         });
@@ -51,7 +56,7 @@ export default function HomeScreen({ navigation }) {
           >
             <List.Item
               title={item.name}
-              description="Item description"
+              description={item.latestMessage.text}
               titleNumberOfLines={1}
               titleStyle={styles.listTitle}
               descriptionStyle={styles.listDescription}

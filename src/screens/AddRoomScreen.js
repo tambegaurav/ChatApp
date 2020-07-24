@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { IconButton, Title } from "react-native-paper";
-import "firebase/firestore";
+
+import { firestore } from "firebase";
 
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
-import { firestore } from "firebase";
+import useStatsBar from "../utils/useStatusBar";
 
 export default AddRoomScreen = ({ navigation }) => {
+  useStatsBar("dark-content");
   const [roomName, setRoomName] = useState("");
 
   function handleButtonPress() {
@@ -16,8 +18,17 @@ export default AddRoomScreen = ({ navigation }) => {
         .collection("THREADS")
         .add({
           name: roomName,
+          latestMessage: {
+            text: `You have joined the room ${roomName}.`,
+            createdAt: new Date().getTime(),
+          },
         })
-        .then(() => {
+        .then((docRef) => {
+          docRef.collection("MESSAGES").add({
+            text: `You have joined the room ${roomName}.`,
+            createdAt: new Date().getTime(),
+            system: true,
+          });
           navigation.navigate("Home");
         });
     }
