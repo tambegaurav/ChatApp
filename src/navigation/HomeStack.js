@@ -5,11 +5,16 @@ import { IconButton } from "react-native-paper";
 import HomeScreen from "../screens/HomeScreen";
 import AddRoomScreen from "../screens/AddRoomScreen";
 import RoomScreen from "../screens/RoomScreen";
+import { logout } from "../api/auth";
 
 const ChatAppStack = createStackNavigator();
 const ModalStack = createStackNavigator();
 
 const ChatApp = () => {
+  const handleLogout = async ({ navigation }) => {
+    await logout();
+  };
+
   return (
     <ChatAppStack.Navigator
       screenOptions={{
@@ -33,6 +38,14 @@ const ChatApp = () => {
               size={28}
               color="#ffffff"
               onPress={() => navigation.navigate("AddRoom")}
+            />
+          ),
+          headerLeft: () => (
+            <IconButton
+              icon="logout-variant"
+              size={28}
+              color="#ffffff"
+              onPress={handleLogout}
             />
           ),
         })}

@@ -4,8 +4,10 @@ import { Title } from "react-native-paper";
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
 import { login } from "../api/auth";
+import useStatsBar from "../utils/useStatusBar";
 
 export default function LoginScreen({ navigation }) {
+  useStatsBar("dark-content");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
